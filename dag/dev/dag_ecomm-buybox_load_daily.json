@@ -1,0 +1,16 @@
+{
+	"dag_ecomm-buybox_load_daily": {
+		"var_prj_raw_custom": "ssbx-ds-ecommerce",
+		"var_prj_raw": "ssbx-ds-ecommerce",
+		"var_prj_sensitive_raw": "sensitive-raw",
+		"var_prj_trusted": "ssbx-ds-ecommerce",
+		"var_prj_sensitive_trusted": "ssbx-ds-ecommerce",
+		"var_prj_refined": "ssbx-ds-ecommerce",
+		"var_prj_sensitive_refined": "ssbx-ds-ecommerce",
+		"schedule_interval": "0 10 * * *",
+		"retries": 0,
+		"retry_delay": 15,
+		"dag_timeout": "",
+		"slack_webhook": ""
+	}
+}

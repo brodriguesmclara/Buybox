@@ -1,0 +1,16 @@
+{
+	"dag_ecomm-buybox_load_daily": {
+		"var_prj_raw_custom": "raw-custom-zone",
+		"var_prj_raw": "raw-zone-005",
+		"var_prj_sensitive_raw": "sensitive-raw",
+		"var_prj_trusted": "trusted-zone",
+		"var_prj_sensitive_trusted": "sensitive-trusted",
+		"var_prj_refined": "refined-zone",
+		"var_prj_sensitive_refined": "sensitive-refined",
+		"schedule_interval": "0 10 * * *",
+		"retries": 3,
+		"retry_delay": 15,
+		"dag_timeout": "",
+		"slack_webhook": ""
+	}
+}

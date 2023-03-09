@@ -1,0 +1,22 @@
+project_id: sensitive-raw # Obrigatório = raw-zone-005 ou sensitive-raw
+topic_name: pubsub_sensitive-raw_ad-buybox-list_topic # Obrigatório
+subscription_name: pubsub_sensitive-raw_ad-buybox-list_sub # Obrigatório
+sandbox_id: ssbx-ds-ecommerce # Obrigatório
+
+labels_topic: 
+  - name: datascience
+    value: marketplace
+allowed_regions: 
+# labels_subscription:  # Por enquanto utiliza apenas labels de criação de tópicos.
+#   - name: a
+#     value: ab
+ack_deadline_seconds: 
+message_retention_duration:  # => Formato: tempo em segundos, adicionar o "s" ao final do valor EX: time+s (86600s)
+dead_letter_topic_name:  # => Formato: preencher com nome de outro tópico já existente.
+retain_acked_messages:  # => Formato: true or false
+enable_message_ordering:  # => Formato: true or false
+expiration_policy:  # => Formato: tempo em segundos, adicionar o "s" ao final do valor EX: time+s (87000s)
+filter:  # => Formato: atributo:dominio
+kms_key_name:  # => Formato: projects/[PROJECT_ID]/locations/[LOCATION]/keyRings/[KEY_RING]/cryptoKeys/[KEY]
+minimum_backoff:  # => Formato: tempo em segundos, adicionar o "s" ao final do valor EX: time+s (30s)
+maximum_backoff:  # => Formato: tempo em segundos, adicionar o "s" ao final do valor EX: time+s (500s)
