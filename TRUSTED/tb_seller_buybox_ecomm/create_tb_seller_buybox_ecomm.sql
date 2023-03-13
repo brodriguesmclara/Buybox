@@ -30,7 +30,7 @@ CREATE TABLE ecommerce.tb_seller_buybox_ecomm (
 				vlr_parcela                   FLOAT64   OPTIONS(description="Valor de cada parcela "),
 				tp_seller                     STRING    OPTIONS(description="Tipo do Seller (por exemplo Third Party - mktp-3p)"),
 				cod_seller_preco_geral        STRING    OPTIONS(description="Código do seller na especificação geral de preços"),
-				nom_seller_preco_geral        STRING    OPTIONS(description="Nome do seller na especificação geral de preços")
+				nome_seller_preco_geral       STRING    OPTIONS(description="Nome do seller na especificação geral de preços")
 	>>,
 	lista_preco 
 		ARRAY<
