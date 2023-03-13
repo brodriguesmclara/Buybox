@@ -26,15 +26,15 @@ BEGIN
 		EXECUTE IMMEDIATE """
 		CREATE TEMP TABLE seller_temp AS
 		SELECT  
-			JSON_VALUE(data, '$._class') AS nom_classe                     
+			JSON_VALUE(data, '$._class') AS nome_classe                     
 			,JSON_VALUE(data, '$._id."$oid"') AS cod_seller                     
 			,JSON_VALUE(data, '$.about') AS des_loja                       
 			,CAST(JSON_VALUE(data, '$.accessData.active') AS BOOLEAN) AS flg_ativo                      
 			,JSON_VALUE(data, '$.accessData.login') AS des_login                      
 			,JSON_VALUE(data, '$.address.city') AS cidade_comercial               
 			,JSON_VALUE(data, '$.address.complement') AS compl_comercial                
-			,JSON_VALUE(data, '$.address.district') AS distrito_comercial             
-			,JSON_VALUE(data, '$.address.number') AS nr_logradouro                  
+			,JSON_VALUE(data, '$.address.district') AS bairro_comercial             
+			,SAFE_CAST(JSON_VALUE(data, '$.address.number') AS INT64)  AS nr_logradouro                  
 			,JSON_VALUE(data, '$.address.postalCode') AS cep_comercial                  
 			,JSON_VALUE(data, '$.address.state') AS estado_comercial               
 			,JSON_VALUE(data, '$.address.streetAddress') AS logradouro_comercial           
@@ -42,15 +42,15 @@ BEGIN
 			,CAST(JSON_VALUE(data, '$.address.bankAccount.accountVV') AS INTEGER) AS cod_verificacao                
 			,JSON_VALUE(data, '$.address.bankAccount.agency')AS cod_agencia                    
 			,CAST(JSON_VALUE(data, '$.address.bankAccount.code') AS INTEGER) AS cod_banco                      
-			,JSON_VALUE(data, '$.address.bankAccount.document')AS banco_documento                 
+			,JSON_VALUE(data, '$.address.bankAccount.document')AS des_documento_bancario                 
 			,JSON_VALUE(data, '$.address.bankAccount.bank')AS nome_conta                 
 			,JSON_VALUE(data, '$.brand._id') AS cod_marca                        
 			,JSON_VALUE(data, '$.brand.slugName') AS des_marca_resumo                
 			,JSON_VALUE(data, '$.category') AS des_categoria                  
-			,JSON_VALUE(data, '$.companyName') AS nom_companhia                  
+			,JSON_VALUE(data, '$.companyName') AS nome_companhia                  
 			,JSON_VALUE(data, '$.configDeliveryProvider.deliveryProvider._id."$oid"') AS cod_empresa_envio          
-			,JSON_VALUE(data, '$.configDeliveryProvider.deliveryProvider.displayName') AS nom_empresa_envio          
-			,JSON_VALUE(data, '$.configDeliveryProvider.deliveryProvider.name') AS nom_empresa_envio_resumo   
+			,JSON_VALUE(data, '$.configDeliveryProvider.deliveryProvider.displayName') AS nome_empresa_envio          
+			,JSON_VALUE(data, '$.configDeliveryProvider.deliveryProvider.name') AS nome_empresa_envio_resumo   
 			,JSON_VALUE(data, '$.configDeliveryProvider.deliveryProvider.type') AS tp_envio                 
 			,CAST(JSON_VALUE(data, '$.configDeliveryProvider.enabled') AS BOOLEAN) AS flg_empresa_envio_habiltada    
 			,JSON_VALUE(data, '$.configDeliveryProvider.reindexStatus.error') AS des_empresa_envio_invalida     
@@ -71,27 +71,27 @@ BEGIN
       		) AS lista_contatos                    
 			,CAST(TIMESTAMP_MILLIS(CAST(REPLACE(JSON_VALUE(data, '$.createdAt."$date"'), '}','') AS INT64)) AS TIMESTAMP) AS dt_hr_criacao                  
 			,CAST(JSON_VALUE(data, '$.deliveryLeadTime') AS INTEGER) AS prz_entrega                    
-			,JSON_VALUE(data, '$.deliveryPolicy') AS des_politica_entrega         --**** CAMPO NAO EXISTENTE  
+			,JSON_VALUE(data, '$.deliveryPolicy') AS des_politica_entrega          
 			,CAST(TIMESTAMP_MILLIS(CAST(REPLACE(JSON_VALUE(data, '$.disabledAt."$date"'), '}','') AS INT64)) AS TIMESTAMP) AS dt_hr_desativado               
 			,CAST(JSON_VALUE(data, '$.enabled') AS BOOLEAN) AS flg_habilitado                 
 			,CAST(TIMESTAMP_MILLIS(CAST(REPLACE(JSON_VALUE(data, '$.enabledAt."$date"'), '}','') AS INT64)) AS TIMESTAMP) AS dt_hr_ativado                  
 			,JSON_VALUE(data, '$.integrator._id') AS cod_integrador                 
-			,JSON_VALUE(data, '$.integrator.name') AS nom_integrador                 
+			,JSON_VALUE(data, '$.integrator.name') AS nome_integrador                 
 			,JSON_VALUE(data, '$.integrator.prefix') AS sgl_integrador                 
 			,CAST(TIMESTAMP_MILLIS(CAST(REPLACE(JSON_VALUE(data, '$.lastModified."$date"'), '}','') AS INT64)) AS TIMESTAMP) AS dt_hr_atualizacao              
 			,JSON_VALUE(data, '$.logo') AS url_img_logo_seller            
 			,CAST(JSON_VALUE(data, '$.organizationId') AS INTEGER) AS cod_organizacao              
-			,JSON_VALUE(data, '$.paymentGateway.name') AS nom_gateway_pagamento          
+			,JSON_VALUE(data, '$.paymentGateway.name') AS nome_gateway_pagamento          
 			,JSON_VALUE(data, '$.paymentGateway.gatewayInfo.externalId') AS cod_gateway_pagamento          
 			,JSON_VALUE(data, '$.paymentGateway.gatewayInfo.status') AS st_gateway_pagamento           
 			,JSON_VALUE(data, '$.registeredNumber') AS cnpj_seller                    
 			,JSON_VALUE(data, '$.returnPolicy') AS des_politica_devolucao         
-			,JSON_VALUE(data, '$.stateInscription') AS insc_estadual                  
-			,JSON_VALUE(data, '$.storeName') AS nom_seller                     
-			,JSON_VALUE(data, '$.tag') AS tag_seller                     
+			,SAFE_CAST(JSON_VALUE(data, '$.stateInscription') AS INT64) AS nr_inscricao_estadual                  
+			,JSON_VALUE(data, '$.storeName') AS nome_seller                     
+			,JSON_VALUE(data, '$.tag') AS nome_tag_seller                     
 			,JSON_VALUE(data, '$.updateStatus.error') AS des_erro_atualizacao           
 			,JSON_VALUE(data, '$.updateStatus.status') AS st_atualizacao                 
-			,CAST(JSON_VALUE(data, '$.version') AS INTEGER) AS ver_seller                    
+			,CAST(JSON_VALUE(data, '$.version') AS INTEGER) AS nr_versao_seller                    
 			,JSON_VALUE(data, '$.websiteUrl') AS url_seller                     
 			,CURRENT_TIMESTAMP() AS dt_hr_carga                    
 			,publish_time AS dt_hr_referencia  

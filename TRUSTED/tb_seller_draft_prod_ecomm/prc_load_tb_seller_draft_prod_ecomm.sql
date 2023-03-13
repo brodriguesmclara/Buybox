@@ -90,8 +90,8 @@ BEGIN
 				FROM UNNEST(JSON_EXTRACT_ARRAY(data, '$.properties')) AS propriedade
 			) AS lista_propriedade    
       		,CAST(TIMESTAMP_MILLIS(CAST(REPLACE(JSON_VALUE(data, '$.releaseDate."$date"'), '}','') AS INT64)) AS TIMESTAMP) AS dt_hr_lancamento          
-      		,JSON_VALUE(data, '$.scaleValue.unit') AS vlr_peso                  
-      		,JSON_VALUE(data, '$.scaleValue.value') AS des_unid_peso             
+      		,JSON_VALUE(data, '$.scaleValue.unit') AS des_unid_peso                   
+      		,CAST(JSON_VALUE(data, '$.scaleValue.value') AS INT64) AS vlr_peso            
       		,JSON_VALUE(data, '$.seller._id."$oid"') AS cod_seller                
       		,JSON_VALUE(data, '$.seller.referenceId') AS cod_referencia            
       		,JSON_VALUE(data, '$.seller.sku') AS cod_produto_seller        
@@ -111,15 +111,15 @@ BEGIN
 			,JSON_VALUE(data,'$.brand._id') AS cod_marca_produto
 			,JSON_VALUE(data,'$.lastUpdate.updatedById') AS cod_autor_alteracao
 			,JSON_VALUE(data,'$.seller.storeName') AS nome_loja_seller
-			,JSON_VALUE(data,'$.seller.tag') AS tag_loja_seller
+			,JSON_VALUE(data,'$.seller.tag') AS nome_tag_loja_seller
 			,JSON_VALUE(data,'$.seller.organizationId') AS cod_organizacao_seller
 			,CAST(JSON_VALUE(data,'$.seller.enabled') AS BOOLEAN) AS flg_ativacao_seller
 			,JSON_VALUE(data,'$.seller.deliveryProvider.displayName') AS nome_empresa_envio
 			,CAST(JSON_VALUE(data,'$.seller.deliveryProvider.enabled') AS BOOLEAN) AS flg_empresa_envio_habilitada
 			,JSON_VALUE(data,'$.seller.integrator._id') AS cod_empresa_integradora
-			,JSON_VALUE(data,'$.seller.integrator.prefix') AS prefixo_empresa_integradora
+			,JSON_VALUE(data,'$.seller.integrator.prefix') AS sgl_empresa_integradora
 			,JSON_VALUE(data,'$.seller.integrator.name') AS nome_empresa_integradora
-			,JSON_VALUE(data,'$.seller.integrator.sellerToken') AS token_empresa_integradora
+			,JSON_VALUE(data,'$.seller.integrator.sellerToken') AS hash_empresa_integradora
 			,JSON_VALUE(data,'$.enabledBy') AS nome_habilitado_por
 			,JSON_VALUE(data,'$.reasonForRefusal') AS des_razao_recusa
 			,JSON_VALUE(data,'$.approveAwaitingAdjustment.requestedBy') AS nome_solicitante_ajustes

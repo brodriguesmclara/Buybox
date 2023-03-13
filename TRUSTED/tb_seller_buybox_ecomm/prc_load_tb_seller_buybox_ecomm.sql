@@ -11,7 +11,7 @@ BEGIN
 
     -- Parametros usados para tabela de controle e log
     DECLARE VAR_PROCEDURE  DEFAULT 'prc_load_tb_seller_buybox_ecomm';
-    DECLARE VAR_DELTA_INI  DATETIME;
+    DECLARE VAR_DELTA_INI  DATE;
     DECLARE VAR_DELTA_FIM  DATE;
     DECLARE VAR_TABELA     STRING;
     DECLARE VAR_DTH_INICIO TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
@@ -32,7 +32,7 @@ BEGIN
         ,JSON_EXTRACT(data,'$.advertisements') AS  data
         ,JSON_EXTRACT(data,'$') AS  root
       FROM `""" || VAR_PRJ_SENSITIVE_RAW || """.raw_amazon_blz.ad_buybox_list`
-      WHERE publish_time BETWEEN '""" || VAR_DELTA_INI || """' AND '""" || VAR_DELTA_FIM || """'
+      WHERE DATE(publish_time) BETWEEN '""" || VAR_DELTA_INI || """' AND '""" || VAR_DELTA_FIM || """'
       """;
 
       --Cricacao da tabela flat que será inserida na tabela final
@@ -69,7 +69,7 @@ BEGIN
             ,CAST(JSON_EXTRACT(ps,'$.installments.monthlyPayment') AS FLOAT64) AS  vlr_parcela
             ,JSON_EXTRACT(ps,'$.installments.SellerType') AS  tp_seller
             ,JSON_EXTRACT(ps,'$.seller.id')AS cod_seller_preco_geral
-            ,JSON_EXTRACT(ps,'$.seller.name')AS nom_seller_preco_geral)
+            ,JSON_EXTRACT(ps,'$.seller.name')AS nome_seller_preco_geral)
           FROM UNNEST(JSON_EXTRACT_ARRAY(data,'$.priceSpecification')) ps
         ) AS lista_espec_preco
         ,ARRAY(

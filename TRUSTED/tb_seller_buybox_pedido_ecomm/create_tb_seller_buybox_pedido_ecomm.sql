@@ -55,7 +55,7 @@ CREATE TABLE ecommerce.tb_seller_buybox_pedido_ecomm (
 	dt_hr_carga                   TIMESTAMP OPTIONS(description="Data e hora da carga na trusted"),
 	dt_hr_referencia              TIMESTAMP OPTIONS(description="Data e hora em que o evento chegou no GCP")
 )
-PARTITION BY DATE(dt_hr_criacao_pedido)
+PARTITION BY TIMESTAMP_TRUNC(dt_hr_carga, DAY)
 CLUSTER BY cod_pedido
 OPTIONS(description="Dados de pedidos de sellers do buybox do marketplace da plataforma BLZ")
 ;
